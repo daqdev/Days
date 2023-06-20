@@ -1,4 +1,4 @@
-package ar.com.decu.days
+package ar.com.decu.days.dates.ui
 
 import android.app.Activity
 import androidx.compose.foundation.background
@@ -16,11 +16,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,41 +29,41 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.com.decu.days.dates.DatesViewModel
+import ar.com.decu.days.dates.data.net.model.DatesModel
 
 @Composable
-fun DaysScreen() {
+fun DaysScreen(datesViewModel: DatesViewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
     ) {
         Header(Modifier.align(Alignment.TopEnd))
-        Body(Modifier.align(Alignment.Center))
+        Body(Modifier.align(Alignment.Center), datesViewModel)
     }
 }
 
 @Composable
-fun Body(modifier: Modifier) {
+fun Body(modifier: Modifier, datesViewModel: DatesViewModel) {
+    val dates: DatesModel by datesViewModel.result.observeAsState(
+        initial = DatesModel(
+            "",
+            0,
+            "",
+            0
+        )
+    )
+
     Column(modifier = modifier) {
-        Card(shape = RoundedCornerShape(4.dp)) {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .background(Color.LightGray)
-            ) {
-                TitleCard(text = "Tarjeta1", Modifier.padding(1.dp))
-                Divider(Modifier.fillMaxWidth())
-                Text(text = "Comtemt 1")
-            }
-        }
+        DataCard("30 Dias", dates.days30.toString(), dates.day30, 30)
         Spacer(Modifier.height(12.dp))
-        DataCard()
-
+        DataCard("90 Dias", dates.days90.toString(), dates.day90, 90)
     }
 }
 
 @Composable
-fun DataCard() {
+fun DataCard(title: String, totalDays: String, finalDate: String, diasTitle: Number) {
     Card(
         shape = RoundedCornerShape(4.dp),
         modifier = Modifier
@@ -76,9 +77,13 @@ fun DataCard() {
                 .background(Color.LightGray)
                 .padding(2.dp)
         ) {
-            TitleCard(text = "90 Dias", Modifier.padding(1.dp))
+            TitleCard(text = title, Modifier.padding(1.dp))
             Divider(Modifier.fillMaxWidth())
-            Text(text = "Comtemt 1")
+            Text(
+                text = "Dias hasta el proximo Viernes en $diasTitle dias: $totalDays",
+                color = Color.Black
+            )
+            Text(text = finalDate, color = Color.Black)
         }
     }
 }
@@ -89,6 +94,7 @@ fun TitleCard(text: String, modifier: Modifier) {
         text = text,
         fontWeight = FontWeight.SemiBold,
         fontSize = 20.sp,
+        color = Color.Black,
         modifier = modifier
     )
 }

@@ -1,4 +1,4 @@
-package ar.com.decu.days.dates.response
+package ar.com.decu.days.dates.data.net.response
 
 import com.google.gson.annotations.SerializedName
 import java.util.Date

@@ -1,10 +1,10 @@
-package ar.com.decu.days.dates
+package ar.com.decu.days.dates.data.net
 
-import ar.com.decu.days.dates.response.DatesResponse
+import ar.com.decu.days.dates.data.net.response.DatesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 
 interface DatesClient {
-    @GET()
+    @GET("/")
     suspend fun getDates(): Response<DatesResponse>
 }

@@ -6,10 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import ar.com.decu.days.dates.DatesViewModel
+import ar.com.decu.days.dates.ui.DaysScreen
 import ar.com.decu.days.ui.theme.DaysTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,30 +16,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DaysTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DaysScreen()
+                    var dates = DatesViewModel()
+                    dates.loadDates()
+                    DaysScreen(dates)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DaysTheme {
-        DaysScreen()
     }
 }
