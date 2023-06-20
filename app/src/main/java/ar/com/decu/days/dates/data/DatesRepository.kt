@@ -8,7 +8,6 @@ class DatesRepository {
     private val api = DatesService()
 
     suspend fun getDates(): DatesResponse {
-        Log.i("LLAMADA AL WS","LLAMADA AL WS")
         return api.getDates().copy()
     }
 }
