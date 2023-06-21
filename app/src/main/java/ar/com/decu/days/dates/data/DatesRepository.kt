@@ -1,6 +1,5 @@
 package ar.com.decu.days.dates.data
 
-import android.util.Log
 import ar.com.decu.days.dates.data.net.DatesService
 import ar.com.decu.days.dates.data.net.response.DatesResponse
 

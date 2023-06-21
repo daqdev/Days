@@ -46,6 +46,7 @@ fun DaysScreen(datesViewModel: DatesViewModel) {
 
 @Composable
 fun Body(modifier: Modifier, datesViewModel: DatesViewModel) {
+
     val dates: DatesModel by datesViewModel.result.observeAsState(
         initial = DatesModel(
             "",
